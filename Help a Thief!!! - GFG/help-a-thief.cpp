@@ -9,21 +9,24 @@ using namespace std;
 #include<bits/stdc++.h>
 class Solution {
   public:
-    int maxCoins(int a[], int b[], int t, int n) {
-    vector<pair<int,int>> b_a(n) ;
-    for(int i=0 ; i<n ; i++)
-        b_a[i] = {b[i],a[i]} ;
-    
-    sort(b_a.rbegin(), b_a.rend()) ;
-    
-    int ans = 0 , cur = 0 ;
-    while(t && cur < n){
-        while(t && b_a[cur].second)
-            ans += b_a[cur].first , t--, b_a[cur].second-- ;
-        cur++ ;
+    int maxCoins(int A[], int B[], int T, int N) {
+        // code here
+        vector<pair<int,int>> mp(N);
+        for(int i=0;i<N;i++){
+            mp[i]={B[i],A[i]};
+        }
+        //int n=sizeof(B)/sizeof(B[0]);
+        sort(mp.rbegin(),mp.rend());
+        //reverse(B.begin(),B.end());
+        int i=0,ans=0;
+        while(T>0 && i<N){
+            int x=min(T,mp[i].second);
+            ans+=x*mp[i].first;
+            T-=x;
+            i++;
+        }
+        return ans;
     }
-    return ans ;
-}
 };
 
 // { Driver Code Starts.
