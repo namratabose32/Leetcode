@@ -11,7 +11,7 @@ class Solution{
 public:
     long long int arrangeTiles(int N){
         // code here
-        vector<long long i> dp(81,1);
+        vector<long long int> dp(81,1);
         for(int i=4;i<=N;i++){
             dp[i]=dp[i-4]+dp[i-1];
         }return dp[N];
