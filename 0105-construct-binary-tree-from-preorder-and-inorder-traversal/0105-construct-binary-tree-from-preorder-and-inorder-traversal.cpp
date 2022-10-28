@@ -11,7 +11,7 @@
  */
 class Solution {
 public:
-    TreeNode* buildT(vector<int> in,int is,int ie,vector<int> pre,int ps,int pe,unordered_map<int,int> &mp){
+    TreeNode* buildT(vector<int> &in,int is,int ie,vector<int> &pre,int ps,int pe,unordered_map<int,int> &mp){
         if(ps>pe || is>ie)
             return NULL;
         TreeNode* root=new TreeNode(pre[ps]);
