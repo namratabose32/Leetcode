@@ -8,18 +8,21 @@ public:
         }
         sort(temp.begin(),temp.end());
         int i=0,ans=0;
+        // count the 1st series of elements from the nums that are in same position as of sorted array
         for(i=0;i<n;i++){
             if(temp[i]==nums[i])
                 ans++;
             else
                 break;
         }
+        // count the last series of elements from the nums that are in same position as of sorted array
         for(int j=n-1;j>i;j--){
             if(temp[j]==nums[j])
                 ans++;
             else
                 break;
         }
+        // shortest subarray to sort so that whole subarray will be in ascending order
         return n-ans;
     }
 };
