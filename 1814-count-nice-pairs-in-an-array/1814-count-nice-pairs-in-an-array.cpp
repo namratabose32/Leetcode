@@ -12,7 +12,8 @@ public:
     int countNicePairs(vector<int>& nums) {
         int ans=0,mod=1e9+7;
         unordered_map<int,int> mp;
-        for(int i=nums.size()-1;i>=0;i--){
+        //for(int i=nums.size()-1;i>=0;i--){
+        for(int i=0;i<nums.size();i++){
             int x= nums[i]-rev(nums[i]);
             // if number found in map count its occurance till now in ans and add +1 in map.
             if(mp.find(x)!=mp.end()){
