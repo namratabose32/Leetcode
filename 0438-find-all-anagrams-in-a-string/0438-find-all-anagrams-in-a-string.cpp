@@ -5,11 +5,12 @@ public:
         map<char,int> pt,st;
         for(auto c:p)
             pt[c]++;
-        for(int i=0;i<p.size()-1;i++)
-            st[s[i]]++;
-        int i=0,j=p.size()-1;
+        int i=0,j=0;
         while(j<s.size()){
-            st[s[j++]]++;
+            if(j<p.size()-1){
+                st[s[j++]]++;
+                continue;
+            }st[s[j++]]++;
             int temp=0;
             for(auto x:pt){
                 if(x.second!=st[x.first]){
