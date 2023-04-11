@@ -1,22 +1,22 @@
 class Solution {
 public:
     vector<vector<int>> ans;
-    void solve(vector<int> arr,int size,vector<int> res,int index,int target){
-        if(size==0 && target==0){
-            ans.push_back(res);
+    void solve(int k,int n,int inx,vector<int> &arr){
+        if(n==0 && k==0){
+            ans.push_back(arr);
             return;
         }
-        if(target<0 || size==0 || index>=arr.size())
+        if(n<0 or k<0)
             return;
-        res.push_back(arr[index]);
-        solve(arr,size-1,res,index+1,target-arr[index]);
-        res.pop_back();
-        solve(arr,size,res,index+1,target);
+        for(int i=inx;i<=9;i++){
+            arr.push_back(i);
+            solve(k-1,n-i,i+1,arr);
+            arr.pop_back();
+        }
     }
     vector<vector<int>> combinationSum3(int k, int n) {
-        vector<int> arr={1,2,3,4,5,6,7,8,9};
-        vector<int> res;
-        solve(arr,k,res,0,n);
+        vector<int> arr;
+        solve(k,n,1,arr);
         return ans;
     }
 };
