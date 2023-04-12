@@ -2,10 +2,10 @@ class Solution {
 public:
     vector<vector<int>> ans;
     void solve(vector<int> nums,int ind,vector<int> &arr){
+        ans.push_back(arr);
         if(ind==nums.size()){
-            ans.push_back(arr);
             return;
-        }ans.push_back(arr);
+        }
         for(int i=ind;i<nums.size();i++){
             if(i!=ind && nums[i]==nums[i-1])
                 continue;
