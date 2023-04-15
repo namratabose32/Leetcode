@@ -1,54 +1,29 @@
 class Solution {
 public:
-    bool isSafe(vector<string> board,int row,int col,int n){
-        int x=row,y=col;
-        // diagonal up
-        while(row>=0 && col>=0){
-            if(board[row][col]=='Q')
-                return 0;
-            row--;
-            col--;
-        }
-        // left
-        col=y;
-        row=x;
-        while(col>=0){
-            if(board[row][col]=='Q')
-                return 0;
-            col--;
-        }
-        //diognal down
-        row=x;
-        col=y;
-        while(row<n && col>=0){
-            if(board[row][col]=='Q')
-                return 0;
-            row++;
-            col--;
-        }
-        return 1;
-    }
-    void solve(vector<vector<string>> & ans,vector<string> board,int col,int n){
+    void solve(vector<vector<string>> & ans,vector<string> board,int col,int n,vector<int> leftRow,vector<int> upperDiagonal,vector<int> lowerDiagonal){
         if(col==n){
             ans.push_back(board);
             return;
         }
         for(int row=0;row<n;row++){
-            if(isSafe(board,row,col,n)){
+            if(lowerDiagonal[row+col]==0 && upperDiagonal[n-1+(col-row)]==0 && leftRow[row]==0){
                 board[row][col]='Q';
-                solve(ans,board,col+1,n);
+                lowerDiagonal[row+col]=1;
+                upperDiagonal[n-1+(col-row)]=1;
+                leftRow[row]=1;
+                solve(ans,board,col+1,n,leftRow,upperDiagonal,lowerDiagonal);
                 board[row][col]='.';
+                lowerDiagonal[row+col]=0;
+                upperDiagonal[n-1+(col-row)]=0;
+                leftRow[row]=0;
             }
         }
     }
     vector<vector<string>> solveNQueens(int n) {
-        vector<string> board(n);
-        string s(n,'.');
-        for(int i=0;i<n;i++){
-            board[i]=s;
-        }
+        vector<string> board(n,string(n,'.'));
+        vector<int> leftRow(n,0),upperDiagonal(2*n-1,0),lowerDiagonal(2*n-1,0);
         vector<vector<string>> ans;
-        solve(ans,board,0,n);
+        solve(ans,board,0,n,leftRow,upperDiagonal,lowerDiagonal);
         return ans;
     }
 };
