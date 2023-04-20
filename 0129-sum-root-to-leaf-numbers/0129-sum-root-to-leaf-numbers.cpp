@@ -11,16 +11,23 @@
  */
 class Solution {
 public:
-    int rootToLeaf(TreeNode* root,int x){
-        if(root==NULL){
-            return 0;
-        }
-        x=x*10+root->val;
-        if(!root->left && !root->right)
-            return x;
-        return rootToLeaf(root->left,x)+rootToLeaf(root->right,x);
-    }
     int sumNumbers(TreeNode* root) {
-        return rootToLeaf(root,0);
+        if(root==NULL)
+            return 0;
+        int ans=0;
+        stack<pair<TreeNode*,int>> st;
+        st.push({root,0});
+        while(!st.empty()){
+            auto [node,x]=st.top();
+            st.pop();
+            x=x*10+node->val;
+            if(!node->left && !node->right)
+                ans+=x;
+            if(node->left)
+                st.push({node->left,x});
+            if(node->right)
+                st.push({node->right,x});
+            
+        }return ans;
     }
 };
