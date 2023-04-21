@@ -11,14 +11,33 @@
  */
 class Solution {
 public:
-    bool Symmetric(TreeNode* left,TreeNode* right){
-        if(!left && !right)
-            return 1;
-        if(!left || !right)
-            return 0;
-        return (left->val==right->val && (Symmetric(left->left,right->right) && Symmetric(left->right,right->left)));
-    }
     bool isSymmetric(TreeNode* root) {
-        return Symmetric(root->left,root->right);
+        stack<TreeNode*> left,right;
+        left.push(root);
+        right.push(root);
+        while(!left.empty() && !right.empty()){
+            int size=left.size();
+            if(left.size()!=right.size())
+                return 0;
+            for(int i=0;i<size;i++){
+                TreeNode* nodeL=left.top(),*nodeR=right.top();
+                left.pop();
+                right.pop();
+                if(nodeL->val!=nodeR->val)
+                    return 0;
+                if(nodeL->left)
+                    left.push(nodeL->left);
+                if(nodeR->right)
+                    right.push(nodeR->right);
+                if(left.size()!=right.size())
+                    return 0;
+                if(nodeL->right)
+                    left.push(nodeL->right);
+                if(nodeR->left)
+                    right.push(nodeR->left);
+                if(left.size()!=right.size())
+                    return 0;
+            }   
+        }return 1;
     }
 };
