@@ -15,16 +15,15 @@ public:
     void path(TreeNode* root,int target,vector<int> arr){
         if(root==NULL)
             return;
+        arr.push_back(root->val);
         if(root->left==NULL && root->right==NULL){
-            if(target-root->val==0){
-                arr.push_back(root->val);
+            if(target-root->val==0)
                 ans.push_back(arr);
-            }
             return;
         }
-        arr.push_back(root->val);
         path(root->left,target-root->val,arr);
         path(root->right,target-root->val,arr);
+        arr.pop_back();
     }
     vector<vector<int>> pathSum(TreeNode* root, int targetSum) {
         vector<int> arr;
