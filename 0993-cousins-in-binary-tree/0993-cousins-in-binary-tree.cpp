@@ -11,32 +11,29 @@
  */
 class Solution {
 public:
-    bool isCousins(TreeNode* root, int x, int y) {
+    int Height(TreeNode* root,int val,int &parent,int height){
         if(root==NULL)
             return 0;
-        queue<TreeNode*> st;
-        st.push(root);
-        while(!st.empty()){
-            int size=st.size();
-            int a=0;
-            for(int i=0;i<size;i++){
-                TreeNode* node=st.front();                
-                st.pop();
-                if(node->left && node->right && (node->left->val==x && node->right->val==y || (node->left->val==y && node->right->val==x)))
-                    return 0;
-                if(node->right){
-                    st.push(node->right);
-                    if(node->right->val==x || node->right->val==y)
-                        a++;
-                }
-                if(node->left){
-                    st.push(node->left);
-                    if(node->left->val==x || node->left->val==y)
-                        a++;
-                }                
-            }
-            if(a==2)
-                return 1;            
-        }return 0;
+        if(root->val==val)
+            return height;
+        parent=root->val;
+        int left=Height(root->left,val,parent,height+1);
+        //value mil gaya ab age kyu khojna direct return maro na
+        if(left)
+            return left;
+        parent = root->val;
+        int right=Height(root->right,val,parent,height+1);
+        return right;
+    }
+    bool isCousins(TreeNode* root, int x, int y) {
+        // matlb ya toh parent same h ya height hi alag h
+        if(root->val==x || root->val==y)
+            return 0;
+        int xParent =-1,yParent=-1;
+        int xHeight=Height(root,x,xParent,0);
+        int yHeight=Height(root,y,yParent,0);
+        if(xParent!=yParent && xHeight==yHeight)
+            return 1;
+        return 0;
     }
 };
