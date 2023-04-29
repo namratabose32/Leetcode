@@ -19,9 +19,10 @@ public:
         while(!st.empty()){
             TreeNode* node=st.top();
             st.pop();
-            TreeNode* left=node->left;
-            node->left=node->right;
-            node->right=left;
+            // TreeNode* left=node->left;
+            // node->left=node->right;
+            // node->right=left;
+            swap(node->left,node->right);
             if(node->left)
                 st.push(node->left);
             if(node->right)
